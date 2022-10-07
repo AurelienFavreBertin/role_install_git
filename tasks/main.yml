@@ -1,0 +1,28 @@
+---
+# tasks file for install_git
+- name: Install git
+  apt:
+    name: git
+    state: present
+    update_cache: yes
+
+- name: Just get information about the repository whether or not it has already been cloned locally
+  ansible.builtin.git:
+    repo: "https://ansible:{{ gitlab_token }}@gitlab.com/cybernight/projet_a_student-list.git"
+    dest: /home/aurelien/student-list
+    clone: no
+    update: no
+  register: debug
+  tags: clone
+
+# - name: echo register
+#   debug:
+#     msg: "{{ debug }}"
+#   tags: clone
+
+- name: clone projet student-list
+  ansible.builtin.git:
+    repo: "https://ansible:{{ gitlab_token }}@gitlab.com/cybernight/projet_a_student-list.git"
+    dest: /home/aurelien/student-list
+  when: debug.changed == true
+  tags: clone

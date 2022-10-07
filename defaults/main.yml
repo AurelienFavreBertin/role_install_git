@@ -1,0 +1,13 @@
+---
+# defaults file for install_git
+gitlab_token: "{{ vault_gitlab_token }}"
+
+
+
+
+
+
+
+
+
+
